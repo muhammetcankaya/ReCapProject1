@@ -5,13 +5,14 @@ using Business.Abstract;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 
-namespace Business.Concrete
+namespace Core.D
 {
     public class CarManager : ICarManager
     { 
-        EfCarDal _carDal;
-        public CarManager(EfCarDal carDal)
+        ICarDal _carDal;
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
         }
@@ -46,7 +47,7 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetById(int Id) => _carDal.GetById(Id);
+        
         public List<Car> GetGetCarsByBrandId(int Id)
         {
             return _carDal.GetGetCarsByBrandId(Id);
@@ -56,6 +57,14 @@ namespace Business.Concrete
             return _carDal.GetCarsByColorId(Id);
         }
 
+        public Car Get(int ıd)
+        {
+            return _carDal.Get(c=>c.CarId== ıd);
+        }
 
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
+        }
     }
 }
