@@ -13,26 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityFrameworkBase<Car, ReCapProject>, ICarDal
     {
-        public List<Car> GetGetCarsByBrandId(int Id)
-        {
-            using (ReCapProject context = new ReCapProject())
-            {
-                // ID'ye göre veritabanında ilgili arabaları bul ve liste olarak döndür
-                return context.Car
-                              .Where(c => c.BrandId == Id)  // CarId'ye göre filtreleme
-                              .ToList();  // Liste olarak döndürme
-            }
-        }
-        public List<Car> GetCarsByColorId (int Id)
-        {
-            using (ReCapProject context = new ReCapProject())
-            {
-                // ID'ye göre veritabanında ilgili arabaları bul ve liste olarak döndür
-                return context.Car
-                              .Where(c => c.ColorId == Id)  // CarId'ye göre filtreleme
-                              .ToList();  // Liste olarak döndürme
-            }
-        }
+
 
         public List<CarDetailDto> GetCarDetails()
         {
