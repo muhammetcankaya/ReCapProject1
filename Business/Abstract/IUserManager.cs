@@ -10,10 +10,10 @@ namespace Business.Abstract
 {
     public interface IUserManager
     {
-        IResult Add(Users user);
-        IResult Update(Users user);
-        IResult Delete(Users user);
-        IDataResult<Users> GetById(int userId);
-        IDataResult<List<Users>> GetAll();
+        IResult Add(User user);
+        IResult Update(User user);
+        IResult Delete(User user);
+        IDataResult<User> GetById(int userId);
+        IDataResult<List<User>> GetAll();
     }
 }

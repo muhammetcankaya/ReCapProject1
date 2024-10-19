@@ -10,31 +10,61 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB ;Database=ReCapProject;Trusted_Connection=true ");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB ;Database=ReCapProject1;Trusted_Connection=true ");
         }
         //Burada bizim nesneler veri tabanıyla eşledik
-        public DbSet<Car> Car { get; set; }
-        public DbSet<Brand> Brand { get; set; }
-        public DbSet<Color> Color { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<Customers> Customers { get; set; }
-        public DbSet<Rentals> Rentals { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Users>()
-                .HasKey(u => u.UserId); // Users için birincil anahtar
+            // Users için birincil anahtar
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.UserId);
 
-            modelBuilder.Entity<Customers>()
-                .HasKey(c => c.CustomerId); // Customers için birincil anahtar
+            // Customers için birincil anahtar
+            modelBuilder.Entity<Customer>()
+                .HasKey(c => c.CustomerId);
 
-            modelBuilder.Entity<Rentals>()
-                .HasKey(r => r.RentId); // Rentals için birincil anahtar
+            // Rentals için birincil anahtar
+            modelBuilder.Entity<Rental>()
+                .HasKey(r => r.RentId);
+
+            // Cars için birincil anahtar
+            modelBuilder.Entity<Car>()
+                .HasKey(c => c.CarId); // CarId, Car tablosundaki birincil anahtar
 
             // İlişkileri tanımla
-            modelBuilder.Entity<Customers>().HasKey(c => c.CustomerId);
 
+            // User ile Customer arasında bire-bir ilişki (1:1)
+            modelBuilder.Entity<Customer>()
+                .HasOne<User>() // Customer'ın bir User'ı olacak
+                .WithOne() // User'ın bir Customer'ı olacak
+                .HasForeignKey<Customer>(c => c.UserId); // Foreign key UserId olacak
 
+            // Customer ile Rental arasında bire-çok ilişki (1:N)
+            modelBuilder.Entity<Rental>()
+                .HasOne<Customer>() // Rental'ın bir Customer'ı olacak
+                .WithMany() // Customer birden fazla Rental'a sahip olabilir
+                .HasForeignKey(r => r.CustomerId); // Foreign key CustomerId olacak
+
+            // User ile Rental arasında bire-çok ilişki (1:N)
+            modelBuilder.Entity<Rental>()
+                .HasOne<User>() // Rental'ın bir User'ı olacak
+                .WithMany() // User birden fazla Rental'a sahip olabilir
+                .HasForeignKey(r => r.UserId); // Foreign key UserId olacak
+
+            // Car ile Rental arasında bire-çok ilişki (1:N)
+            modelBuilder.Entity<Rental>()
+                .HasOne<Car>() // Rental'ın bir Car'ı olacak
+                .WithMany() // Car birden fazla Rental'a sahip olabilir
+                .HasForeignKey(r => r.CarId); // Foreign key CarId olacak
         }
+
 
     }
 }

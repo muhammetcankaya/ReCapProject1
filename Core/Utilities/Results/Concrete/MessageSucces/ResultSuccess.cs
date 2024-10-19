@@ -8,11 +8,11 @@ namespace Core.Utilities.Results.Concrete.MessageSucces
 {
     public class ResultSuccess:Result
     {
-        public ResultSuccess(string message):base(false,message)
+        public ResultSuccess(string message):base(true,message)
         {
             
         }
-        public ResultSuccess():base(false)
+        public ResultSuccess():base(true)
         {
             
         }

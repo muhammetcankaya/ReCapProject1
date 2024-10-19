@@ -7,11 +7,12 @@ using Core.Entities;
 
 namespace Entities.Concrete
 {
-    public class Customers:IEntity
+    public class Customer:IEntity
     {
         public int CustomerId { get; set; } // Birincil anahtar
         public int UserId { get; set; }      // Users ile ilişki
         public string CompanyName { get; set; }
+
 
     }
 }

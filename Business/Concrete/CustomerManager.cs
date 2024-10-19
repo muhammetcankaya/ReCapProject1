@@ -19,31 +19,31 @@ namespace Business.Concrete
         {
             _customerDal = customerDal;      
         }
-        public IResult Add(Customers customer)
+        public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
             return new ResultSuccess("Müşteri bilgisi Başarılı bir şekilde eklendi");
         }
 
-        public IResult Delete(Customers customer)
+        public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
             return new ResultSuccess("Müşteri bilgisi Başarılı bir şekilde Silindi");
         }
 
-        public IDataResult<List<Customers>> GetAll()
+        public IDataResult<List<Customer>> GetAll()
         {
             _customerDal.GetAll();
-            return new DataResult<List<Customers>>(_customerDal.GetAll(),true,"Bilgiler Başarılı Bir Şekilde Getirildi");
+            return new DataResult<List<Customer>>(_customerDal.GetAll(),true,"Bilgiler Başarılı Bir Şekilde Getirildi");
         }
 
-        public IDataResult<Customers> GetById(int customerId)
+        public IDataResult<Customer> GetById(int customerId)
         {
             _customerDal.Get(p => p.CustomerId == customerId);
-            return new DataResult<Customers>(_customerDal.Get(p => p.CustomerId == customerId), true, _customerDal.Get(p => p.CustomerId == customerId) + ". Id yE SAHİP bİLGİ");
+            return new DataResult<Customer>(_customerDal.Get(p => p.CustomerId == customerId), true, _customerDal.Get(p => p.CustomerId == customerId) + ". Id yE SAHİP bİLGİ");
         }
 
-        public IResult Update(Customers customer)
+        public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
             return new ResultSuccess("Müşteri bilgisi Başarılı bir şekilde Güncellendi");

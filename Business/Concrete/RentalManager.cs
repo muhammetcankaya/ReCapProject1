@@ -19,7 +19,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-        public IResult Add(Rentals rental)
+        public IResult Add(Rental rental)
         {
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId).OrderByDescending(r => r.RentId).FirstOrDefault() == null)
             {
@@ -40,25 +40,25 @@ namespace Business.Concrete
             }
         }
 
-        public IResult Delete(Rentals rental)
+        public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new ResultSuccess("Silme İşlemi başarıyla gerçekleişti");
         }
 
-        public IDataResult<List<Rentals>> GetAll()
+        public IDataResult<List<Rental>> GetAll()
         {
             _rentalDal.GetAll();
-            return new DataResult<List<Rentals>>(_rentalDal.GetAll(), true, "Bilgiler Getirildi");
+            return new DataResult<List<Rental>>(_rentalDal.GetAll(), true, "Bilgiler Getirildi");
         }
 
-        public IDataResult<Rentals> GetById(int rentalId)
+        public IDataResult<Rental> GetById(int rentalId)
         {
             _rentalDal.Get(r=>r.RentId==rentalId);
-            return new DataResult<Rentals>(_rentalDal.Get(r => r.RentId == rentalId), true, "Bilgiler Getirildi");
+            return new DataResult<Rental>(_rentalDal.Get(r => r.RentId == rentalId), true, "Bilgiler Getirildi");
         }
 
-        public IResult Update(Rentals rental)
+        public IResult Update(Rental rental)
         {
             _rentalDal.Delete(rental);
             return new ResultSuccess("Güncelleme İşlemi başarıyla gerçekleişti");

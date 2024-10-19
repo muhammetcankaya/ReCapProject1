@@ -9,7 +9,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserDal:EfEntityFrameworkBase<Users,ReCapProject>,IUserDal
+    public class EfUserDal:EfEntityFrameworkBase<User,ReCapProject>,IUserDal
     {
     }
 }
