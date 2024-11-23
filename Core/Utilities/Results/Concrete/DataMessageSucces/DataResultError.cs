@@ -8,7 +8,7 @@ namespace Core.Utilities.Results.Concrete.DataMessageSucces
 {
     public class DataResultError<T>:DataResult<T>
     {
-        public DataResultError(T data, string message) : base(data, true, message)
+        public DataResultError(T data, string message) : base(data, false, message)
         {
 
         }

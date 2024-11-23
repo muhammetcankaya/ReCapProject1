@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Results.Concrete.MessageSucces;
@@ -20,21 +23,25 @@ namespace Core.D
             _carDal = carDal;
         }
 
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 50 && car.Description.Length > 2)
-            {
-                
-                _carDal.Add(car);
-                return new ResultSuccess("Ekleme İşlemi Başarıyla gerçekleiştir");
+            //if (car.DailyPrice > 50 && car.Description.Length > 2)
+            //{
 
-            }
-            return new ResultError("Ekleme işlemi yapılamadı kurallara Uygun haraket ediniz");
-            
-            
+            //    _carDal.Add(car);
+            //    return new ResultSuccess("Ekleme İşlemi Başarıyla gerçekleiştir");
+
+            //}
+            //return new ResultError("Ekleme işlemi yapılamadı kurallara Uygun haraket ediniz");
+            // yukardaki kuralıda validatora göndercez
+            //bunun aynısını hepsine yapıcaz
+            //buna gerek kalmadı yukaru bak 
+            //ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new ResultSuccess("Ekleme işlemi yapıldı");
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

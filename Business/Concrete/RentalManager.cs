@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Results.Concrete.MessageSucces;
@@ -19,6 +21,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             if (_rentalDal.GetAll(r => r.CarId == rental.CarId).OrderByDescending(r => r.RentId).FirstOrDefault() == null)
@@ -39,7 +42,7 @@ namespace Business.Concrete
                 return new ResultSuccess("Araba Kiralama bilgisi eklenmedi");
             }
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -60,7 +63,7 @@ namespace Business.Concrete
 
         public IResult Update(Rental rental)
         {
-            _rentalDal.Delete(rental);
+            _rentalDal.Update(rental);
             return new ResultSuccess("Güncelleme İşlemi başarıyla gerçekleişti");
         }
     }
