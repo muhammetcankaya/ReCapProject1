@@ -5,8 +5,15 @@ using Business.Abstract;
 using Business.Concrete;
 using Business.DependencyResolvers.Autofac;
 using Core.D;
+using Core.Utilities.IoC;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
+using Core.Extensions;
 using DataAccess.Concrete.EntityFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Core.DependencyResolvers;
 
 namespace WebAPI
 {
@@ -53,7 +60,26 @@ namespace WebAPI
             //builder.Services.AddSingleton<IRentalManager, RentalManager>();
             //builder.Services.AddSingleton<IRentalDal, EfRentalDal>();
 
-
+            var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            
+            // Authentication ve JWT yapýlandýrmasýný ekle
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                    };
+                });
+            builder.Services.AddDependencyResolvers(new ICoreModule[]
+            { new CoreModule()
+            });
 
             var app = builder.Build();
 
@@ -68,6 +94,7 @@ namespace WebAPI
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
 
             app.MapControllers();
 

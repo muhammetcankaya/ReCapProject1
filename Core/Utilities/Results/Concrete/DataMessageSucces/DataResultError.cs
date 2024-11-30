@@ -16,5 +16,9 @@ namespace Core.Utilities.Results.Concrete.DataMessageSucces
         {
 
         }
+        public DataResultError(string message) : base(default, false, message)
+        {
+
+        }
     }
 }

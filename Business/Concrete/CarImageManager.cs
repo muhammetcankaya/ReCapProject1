@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.FileHelpers;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -26,7 +27,7 @@ namespace Business.Concrete
         {
             _carImagerDal = carImagerDal;
         }
-        
+        [SecuredOperation("carımage.add,admin")]
         public IResult Add(CarImage carImage,IFormFile file)
         {
             //CarImage carImage = new CarImage
@@ -74,7 +75,7 @@ namespace Business.Concrete
             return new ResultSuccess("Silme işlemi başarıyla gerçekleşti");
         }
 
-
+        [SecuredOperation("car.foto.by.ıd,admin")]
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
 

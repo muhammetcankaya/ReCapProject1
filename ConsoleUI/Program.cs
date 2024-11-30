@@ -23,7 +23,7 @@ namespace ConsoleUI
             //AddBrands();
             //AddColors();
             //AddCars();
-            AddUsers();
+            //AddUsers();
             //AddCustomers();
             // Cartest();
 
@@ -102,7 +102,7 @@ namespace ConsoleUI
             //userManager.Add(new User { FirstName = "Mehmet", LastName = "Demir", Email = "mehmet.demir@example.com", Password = "password2" });
             //userManager.Add(new User { FirstName = "Ayşe", LastName = "Kara", Email = "ayse.kara@example.com", Password = "password3" });
             //userManager.Add(new User { FirstName = "Fatma", LastName = "Çelik", Email = "fatma.celik@example.com", Password = "password4" });
-            userManager.Add(new User { FirstName = "salih", LastName = "Koç", Email = "salih.koc@example.com", Password = "password6" });
+            //userManager.Add(new User { FirstName = "salih", LastName = "Koç", Email = "salih.koc@example.com", Password = "password6" });
 
             Console.WriteLine("Kullanıcılar eklendi.");
         }

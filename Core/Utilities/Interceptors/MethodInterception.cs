@@ -37,3 +37,24 @@ namespace Core.Utilities.Interceptors
         }
     }
 }
+//public abstract class MethodInterception : MethodInterceptionBaseAttribute:
+
+//Bu sınıf, MethodInterceptionBaseAttribute sınıfından türetilmiştir ve 
+//    AOP işlemlerinin uygulanmasında kullanılır. 
+//    Metodların başında ve sonunda yapılacak işlemleri kontrol eder.
+
+//public override void Intercept(IInvocation invocation):
+
+//Intercept metodu, IInvocation nesnesi ile çalışır ve metodu intercept
+//etmek için kullanılan ana metottur.
+//var isSuccess = true;: İlk olarak isSuccess adında bir 
+//boolean değişkeni tanımlanır. Eğer metod başarılı bir şekilde çalışırsa true kalır, hata alırsa false olur.
+//OnBefore(invocation);: Metod çağrılmadan önce yapılacak
+//işlemler çağrılır.
+//invocation.Proceed();: Bu satır, metodun normal işlevini çalıştırır.
+//Eğer burada bir hata oluşursa, catch bloğuna düşer.
+//catch (Exception e): Eğer metod çalışırken bir hata meydana gelirse,
+//hata burada yakalanır ve isSuccess değeri false yapılır.
+//Ayrıca OnException metodu çağrılır.
+//finally: Son olarak, metod başarılı bir şekilde çalıştıysa OnSuccess
+//çağrılır. Her durumda ise OnAfter çağrılır

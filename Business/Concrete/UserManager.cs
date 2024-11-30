@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Core.Utilities.Results.Concrete.DataMessageSucces;
 using Core.Utilities.Results.Concrete.MessageSucces;
 using DataAccess.Abstract;
-using Entities.Concrete;
+
+
+
 
 namespace Business.Concrete
 {
@@ -51,5 +55,14 @@ namespace Business.Concrete
             return new DataResult<User>(_userDal.Get(p => p.UserId == userId), true, _userDal.Get(p => p.UserId == userId).UserId+".Kullanıcı bilgileri başarılı bir şekilde getirildi");
         }
 
+        public IDataResult<User> GetByMail(string email)
+        {
+            return new DataResultSuccess<User>( _userDal.Get(u => u.Email == email));
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new DataResultSuccess<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
     }
 }
